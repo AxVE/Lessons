@@ -36,6 +36,7 @@ int main(){
 		//Get the device to use (default: first)
 		cl::Device device = all_devices[0];
 		cout << "[OpenCL] Using device: " << device.getInfo<CL_DEVICE_NAME>() << endl;
+		cout << "[OpenCL] device's version: " << device.getInfo<CL_DEVICE_VERSION>() << endl;
 
 		//Create context and sources;
 		cout << "[OpenCL] Create context and sources" << endl;
