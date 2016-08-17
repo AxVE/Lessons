@@ -48,35 +48,36 @@ void syncMap(vector< vector<uint8_t> >& map){
 				mean_neighbours[x][y] += map[x+1][y-1];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y+1];
-				mean_neighbours[x][y] /= 8;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/8+5)/10;
+				//cout << ((10*11)/uint64_t(2)+5)/10 << endl;
 			}
 			//Corner Up Left
 			else if(x ==0 and y==0){
 				mean_neighbours[x][y] += map[x][y+1];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y+1];
-				mean_neighbours[x][y] /= 3;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/3+5)/10;
 			}
 			//Corner Down Left
 			else if(x ==0 and y==size_y-1){
 				mean_neighbours[x][y] += map[x][y-11];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y-1];
-				mean_neighbours[x][y] /= 3;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/3+5)/10;
 			}
 			//Corner Up Right
 			else if(x ==size_x-1 and y==0){
 				mean_neighbours[x][y] += map[x][y+1];
 				mean_neighbours[x][y] += map[x-1][y];
 				mean_neighbours[x][y] += map[x-1][y+1];
-				mean_neighbours[x][y] /= 3;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/3+5)/10;
 			}
 			//Corner Down right
 			else if(x ==size_x-1 and y==size_y-1){
 				mean_neighbours[x][y] += map[x][y-1];
 				mean_neighbours[x][y] += map[x-1][y];
 				mean_neighbours[x][y] += map[x-1][y-1];
-				mean_neighbours[x][y] /= 3;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/3+5)/10;
 			}
 			//Border Left
 			else if(x == 0){
@@ -85,7 +86,7 @@ void syncMap(vector< vector<uint8_t> >& map){
 				mean_neighbours[x][y] += map[x+1][y-1];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y+1];
-				mean_neighbours[x][y] /= 5;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/5+5)/10;
 			}
 			//Border Right
 			else if(x == size_x-1){
@@ -94,7 +95,7 @@ void syncMap(vector< vector<uint8_t> >& map){
 				mean_neighbours[x][y] += map[x-1][y-1];
 				mean_neighbours[x][y] += map[x-1][y];
 				mean_neighbours[x][y] += map[x-1][y+1];
-				mean_neighbours[x][y] /= 5;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/5+5)/10;
 			}
 			//Border Up
 			else if(y == 0){
@@ -103,7 +104,7 @@ void syncMap(vector< vector<uint8_t> >& map){
 				mean_neighbours[x][y] += map[x][y+1];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y+1];
-				mean_neighbours[x][y] /= 5;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/5+5)/10;
 			}
 			//Border Down
 			else if(y == size_y-1){
@@ -112,7 +113,7 @@ void syncMap(vector< vector<uint8_t> >& map){
 				mean_neighbours[x][y] += map[x][y-1];
 				mean_neighbours[x][y] += map[x+1][y];
 				mean_neighbours[x][y] += map[x+1][y-1];
-				mean_neighbours[x][y] /= 5;
+				mean_neighbours[x][y] = ((mean_neighbours[x][y]*10)/5+5)/10;
 			}
 		}
 	}
@@ -122,10 +123,6 @@ void syncMap(vector< vector<uint8_t> >& map){
 	//Edit values of cases (based on neighbours at the same time !)
 	for(size_t x=0; x < size_x; x++){
 		for(size_t y=0; y < size_y; y++){
-			/*
-			if(mean_neighbours[x][y]-1 > map[x][y]){ map[x][y] += (mean_neighbours[x][y]-map[x][y])/d;}
-			else if(mean_neighbours[x][y]+1 < map[x][y]){map[x][y] -= (map[x][y]-mean_neighbours[x][y])/d;}
-			*/
 			if(mean_neighbours[x][y]-1 > map[x][y]){ map[x][y] += 1;}
 			else if(mean_neighbours[x][y]+1 < map[x][y]){map[x][y] -= 1;}
 		}
