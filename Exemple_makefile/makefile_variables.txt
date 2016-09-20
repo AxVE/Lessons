@@ -1,0 +1,27 @@
+CC=g++
+CFLAGS=-std=c++14 -W -Wall --pedantic
+LFAGS=
+SRC=Src/ #Dossiers des sources
+OBJ=Obj/ #Dossier des fichiers objets .o
+BIN=Bin/ #Dossier des fichiers execs
+PROG=nom_exec
+
+
+all: prog
+
+prog: main.o
+	$(CC) $(CFLAGS) -o $(BIN)$(PROG) $(OBJ)main.o
+
+main.o: binseq.o
+	$(CC) $(CFLAGS) -o $(addprefix $(OBJ),$@) -c $(addprefix $(OBJ),$^) main.cpp
+
+%.o: $(addprefix $(SRC),%.cpp)
+	$(CC) $(CFLAGS) -o $(addprefix $(OBJ),$@) -c $^
+
+.PHONY: clean javel
+
+clean:
+	rm $(OBJ)*.o
+
+javel: clean
+	rm $(BIN)*$(PROG)

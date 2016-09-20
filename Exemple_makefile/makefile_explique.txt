@@ -1,0 +1,28 @@
+CC=g++
+CFLAGS=-g -Wall -pedantic -Warnings -ansi -error #CC parameters
+LFLAGS= 	#Libraries
+PROG=nom_exe
+
+
+all: prog
+
+prog: file1.o file2.o file3.o fileSpecial.o main.o #Fichiers dans l'ordre INVERSE des dépendances (compiler en premier les parents, logique quoi)
+	$(CC) $(CFLAGS) -L $(LFLAGS) -o $(PROG) $^
+
+#Fichiers aux regles specifiques
+fileSpecial.o: file4.o  fileSpecial.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
+#Fichiers avec seulement les règles génériques
+%.o: %.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+
+#Nettoyage
+.phony: clean, javel #Reset le make avec les commandes phonytées
+
+clean:
+	rm *.o
+javel: clean
+	rm $(PROG)
